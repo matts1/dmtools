@@ -1,0 +1,111 @@
+{% load static %}
+{% load macros %}
+
+{% macro title %}
+    {% block title %}ADD A TITLE{% endblock %}
+{% endmacro %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% use_macro title %} - DM Tools</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}" />
+    {% block extrastyle %}{% endblock %}
+    <!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="{% block stylesheet_ie %}{% static "admin/css/ie.css" %}{% endblock %}" /><![endif]-->
+    <script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static "admin/" %}{% endfilter %}";</script>
+    <script type="text/javascript">window.__admin_utc_offset__ = "{% filter escapejs %}{% now "Z" %}{% endfilter %}";</script>
+    {% block extrahead %}{% endblock %}
+
+</head>
+<body>
+  <nav class="navbar navbar-inverse navbar-static-top header">
+    <div class="container">
+      <a class="navbar-brand" href="#index">DM Tools</a>
+        {% if user.is_authenticated %}
+          <form class="navbar-form navbar-left form-search col-md-7" action=""
+                method="get">
+            <div class="input-group" style="width:300px">
+              <input type="search" class="form-control" placeholder="Search" name="query">
+              <span class="input-group-btn">
+                <button class="btn"><span class="glyphicon glyphicon-search"></span></button>
+              </span>
+            </div>
+          </form>
+        {% endif %}
+      <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
+        <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+      </button>
+      <div class="collapse navbar-collapse navHeaderCollapse">
+        <ul class="nav navbar-nav navbar-right">
+          {% if user.is_authenticated %}
+            <li><a href="#JoinCourse" data-toggle="modal">Join Course</a></li>
+            <li><a href="">Courses</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Create <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#CreateCourse" data-toggle="modal">Course</a></li>
+                </ul>
+              </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Welcome, {{ user.fname }}<strong>{% firstof user.get_short_name user.get_username %}</strong> <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                {# <li><a href="{% url 'profile' user.id %}">Profile</a></li> #}
+                <li><a href="{% url 'password_change' %}">Change Password</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+
+              </ul>
+            </li>
+          {% else %}
+            <li><a href="{% url 'password_reset' %}" data-toggle="modal">Reset Password</a></li>
+            <li><a href="{% url 'login' %}" data-toggle="modal">Login</a></li>
+            <li><a href="#register" data-toggle="modal">Sign Up</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row">
+      {% if user.is_authenticated and messages %}<div class="col-lg-9">{% endif %}
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="page-header h1">{% use_macro title %}</div>
+              {% block content %}ADD SOME CONTENT{% endblock %}
+          </div>
+        </div>
+      {% if user.is_authenticated and messages %}
+      </div>
+      <div class="col-lg-3">
+        <div class="list-group">
+        {% for message in messages %}
+          <a href="#MESSAGELINKHERE" class="list-group-item">
+            <div class="list-group-item-heading">message heading here</div>
+            <button type="button" class="close notify-delete" data-dismiss="alert">
+              <span aria-hidden="true">&times;</span>
+              <span class="sr-only">Close</span>
+            </button>
+            <div class="list-group-item-text">{{ message|capfirst }}</div>
+          </a>
+        {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  <noscript>
+    For full functionality of this site it is necessary to enable JavaScript.
+    Here are the <a href="http://www.enable-javascript.com/">
+    instructions how to enable JavaScript in your web browser</a>.
+  </noscript>
+
+  <script src="{% static 'js/jquery-2.1.4.js' %}"></script>
+  <script src="{% static 'js/bootstrap.js' %}"></script>
+
+</body>
+</html>
