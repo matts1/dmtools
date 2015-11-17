@@ -45,3 +45,7 @@
 .section {
     padding-bottom: 5px;
 }
+
+.asteriskField { /* for django crispy required fields */
+    display: none;
+}

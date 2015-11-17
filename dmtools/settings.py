@@ -40,9 +40,12 @@ DJANGO_MODULES = (
 
 THIRD_PARTY_MODULES = (
     'macros',
+    'crispy_forms',
 )
 
-MY_APPS = ()
+MY_APPS = (
+    'authextender',
+)
 
 INSTALLED_APPS = DJANGO_MODULES + THIRD_PARTY_MODULES + MY_APPS
 
