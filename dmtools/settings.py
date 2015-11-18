@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
+from django.core.urlresolvers import reverse_lazy
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -45,6 +47,7 @@ THIRD_PARTY_MODULES = (
 
 MY_APPS = (
     'authextender',
+    'maps',
 )
 
 INSTALLED_APPS = DJANGO_MODULES + THIRD_PARTY_MODULES + MY_APPS
@@ -115,3 +118,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+AUTH_USER_MODEL = 'authextender.User'
+LOGIN_REDIRECT_URL = reverse_lazy('profile')

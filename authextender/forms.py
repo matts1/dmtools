@@ -1,11 +1,16 @@
 from django.contrib.auth.forms import *
-from django.core.urlresolvers import reverse
 
 from common.crispymixin import CrispyMixin
 
 
 class UserCreationForm(CrispyMixin, UserCreationForm):
-    pass
+    title = 'Register'
+    name = 'register'
+    success_url = 'login'
+
+    class Meta:
+        model = User
+        fields = ('email', 'username')
 
 
 class UserChangeForm(CrispyMixin, UserChangeForm):

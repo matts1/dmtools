@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% firstof user.get_short_name user.get_username %}
+
+{% for campaign in user.campaigns %}
+    {% include 'maps/show.html' with map=campaign %}
+{% endfor %}
+{% endblock %}

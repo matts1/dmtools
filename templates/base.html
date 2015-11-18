@@ -2,7 +2,7 @@
 {% load macros %}
 
 {% macro title %}
-    {% block title %}ADD A TITLE{% endblock %}
+    {% block title %}{% firstof form.title obj.name 'ADD A TITLE' %}{% endblock %}
 {% endmacro %}
 
 <!DOCTYPE html>
@@ -63,7 +63,7 @@
           {% else %}
             <li><a href="{% url 'password_reset' %}" data-toggle="modal">Reset Password</a></li>
             <li><a href="{% url 'login' %}" data-toggle="modal">Login</a></li>
-            <li><a href="#register" data-toggle="modal">Sign Up</a></li>
+            <li><a href="{% url 'register' %}" data-toggle="modal">Sign Up</a></li>
           {% endif %}
         </ul>
       </div>
